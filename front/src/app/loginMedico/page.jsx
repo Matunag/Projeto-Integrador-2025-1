@@ -1,0 +1,44 @@
+export default function LoginMedico() {
+    return (
+        <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
+            <div className="bg-white w-full sm:w-2/4 flex flex-col items-center border border-black rounded-xl gap-7 px-5 py-7">
+                <p className="font-bold text-xl border-b-2 border-[#FFB8B8] pb-2">Médico, faça o login!</p>
+
+                <input 
+                    type="number"
+                    placeholder="CRM"
+                    className="bg-[#F4EEEE] py-2 px-2 rounded-md"
+                />
+
+                <input 
+                    type="text"
+                    placeholder="Senha"
+                    className="bg-[#F4EEEE] py-2 px-2 rounded-md"
+                />
+
+                <button 
+                    className="text-center bg-[#FFB8B8] px-4 py-2 rounded-2xl"
+                >
+                    Entrar
+                </button>
+
+                <div className="flex w-full justify-around items-center">
+                    <a 
+                        href=""
+                        className="border-b-2 border-[#FFB8B8] pb-2"
+                    >
+                        <p>Esqueceu a senha?</p>
+                    </a>
+
+                    <a 
+                        href=""
+                        className=" text-center border-b-2 border-[#FFB8B8] pb-2"
+                    >
+                        <p>Não possui conta?</p>
+                        <p>Cadastre-se</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    )
+}
