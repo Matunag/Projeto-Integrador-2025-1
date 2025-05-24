@@ -8,7 +8,7 @@ Este é o repositório do projeto integrador da turma de graduação em Engenhar
 * [ ] Nome 2
 * [ ] Nome 3
 * [ ] Nome 4
-* [ ] Nome 5
+* [ ] João Aquiles Lemos Reis
 
 ---
 
