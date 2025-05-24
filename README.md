@@ -7,7 +7,7 @@ Este é o repositório do projeto integrador da turma de graduação em Engenhar
 * [ ] Fernando Cardoso Houara Brêttas
 * [ ] Nome 2
 * [ ] Nome 3
-* [ ] Nome 4
+* [ ] Gabriel Freitas Brandão
 * [ ] João Aquiles Lemos Reis
 
 ---
