@@ -4,11 +4,11 @@ Este é o repositório do projeto integrador da turma de graduação em Engenhar
 
 ## 👥 Integrantes
 
-* [ ] Nome 1
+* [ ] Fernando Cardoso Houara Brêttas
 * [ ] Nome 2
 * [ ] Nome 3
 * [ ] Nome 4
-* [ ] Nome 5
+* [ ] João Aquiles Lemos Reis
 
 ---
 
