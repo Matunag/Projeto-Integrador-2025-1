@@ -6,12 +6,14 @@ import { CiMedicalClipboard } from "react-icons/ci";
 import { MdScreenSearchDesktop } from "react-icons/md";
 import { ImStatsDots } from "react-icons/im";
 import Chart from "react-google-charts";
+import RecentPacient from "@/components/RecentPacient";
+import { pacients } from "@/dados ficticios/dadosFicticios";
 
 export default function Dashboard() {
     return (
-        <div className="w-full h-screen bg-[#F9F5F5] flex flex-col gap-7">
+        <div className="w-full h-screen bg-[#F9F5F5] flex flex-col">
             <section className="bg-[#FFD8D8] w-full flex items-center justify-between px-5 py-3">
-                <FiMenu 
+                <FiMenu
                     className="w-10 lg:w-12 h-fit lg:mr-16"
                 />
 
@@ -25,44 +27,67 @@ export default function Dashboard() {
 
                 <div className="flex items-center gap-4">
                     <p className="text-xl hidden lg:block">Perfil</p>
-                    <HiOutlineUserCircle 
+                    <HiOutlineUserCircle
                         className="w-12 lg:w-16 h-fit"
                     />
                 </div>
             </section>
 
-            <section className="flex px-8">
-                <div className="flex flex-col justify-between w-1/3 h-[80vh]">
-                    <button className="flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
-                        <CiMedicalClipboard className="w-12 h-fit"/>
-                        Preencher ficha citopatológica
-                    </button>
+            <section className="h-full grid gap-8 px-8 py-5">
 
-                    <button className="flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
-                        <MdScreenSearchDesktop className="w-12 h-fit"/>
-                        Consultar pacientes cadastrados
-                    </button>
+                <div className="flex justify-between w-full">
 
-                    <button className="flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
-                        <ImStatsDots className="w-12 h-fit"/>
-                        Estatística
-                    </button>
-                    
-                    <div className="h-[55%] px-5 flex flex-col justify-center gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                    <div className="w-[35%] flex flex-col justify-between">
+                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                            <CiMedicalClipboard className="w-12 h-fit" />
+                            Preencher ficha citopatológica
+                        </button>
+
+                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                            <MdScreenSearchDesktop className="w-12 h-fit" />
+                            Consultar pacientes cadastrados
+                        </button>
+
+                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                            <ImStatsDots className="w-12 h-fit" />
+                            Estatística
+                        </button>
+                    </div>
+
+                    <div className="w-[35%] flex flex-col justify-between px-5 py-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                        <p>Pacientes recentes</p>
+
+                        {
+                            pacients.map((pacient, index) => (
+                                <RecentPacient pacientData={pacient} key={index} />
+                            ))
+                        }
+                    </div>
+
+                    <div className="w-[20%] flex flex-col p-5 gap-3 items-center text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                        <p>Exames pendentes</p>
+                        <div className="h-full flex justify-center items-center aspect-square border-4 border-[#D9D9D9] rounded-full">
+                            <p className="text-[#D9D9D9] text-8xl">10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="w-full flex">
+                    <div className="w-[35%] px-5 flex flex-col justify-center gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
                         <p>Pacientes por nível de risco</p>
                         <div className="flex justify-evenly text-lg">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-3 bg-[#4CAF50]"/>
+                                <div className="w-8 h-3 bg-[#4CAF50]" />
                                 Baixo
                             </div>
 
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-3 bg-[#FFC107]"/>
+                                <div className="w-8 h-3 bg-[#FFC107]" />
                                 Médio
                             </div>
 
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-3 bg-[#F44236]"/>
+                                <div className="w-8 h-3 bg-[#F44236]" />
                                 Alto
                             </div>
                         </div>
