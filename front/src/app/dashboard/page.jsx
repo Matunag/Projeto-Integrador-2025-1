@@ -8,8 +8,10 @@ import { ImStatsDots } from "react-icons/im";
 import Chart from "react-google-charts";
 import RecentPacient from "@/components/RecentPacient";
 import { pacients } from "@/dados ficticios/dadosFicticios";
+import Link from "next/link";
 
 export default function Dashboard() {
+
     return (
         <div className="w-full h-screen bg-[#F9F5F5] flex flex-col">
             <section className="bg-[#FFD8D8] w-full flex items-center justify-between px-5 py-3">
@@ -38,17 +40,24 @@ export default function Dashboard() {
                 <div className="flex justify-between w-full">
 
                     <div className="w-[35%] flex flex-col justify-between">
-                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                        <Link 
+                            href={"/form"}
+                            className="hover:scale-[1.06] transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg"
+                        >
                             <CiMedicalClipboard className="w-12 h-fit" />
                             Preencher ficha citopatológica
-                        </button>
+                        </Link>
 
-                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                        <button 
+                            className="hover:scale-[1.06] transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg"
+                        >
                             <MdScreenSearchDesktop className="w-12 h-fit" />
                             Consultar pacientes cadastrados
                         </button>
 
-                        <button className="hover:scale-110 transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                        <button 
+                            className="hover:scale-[1.06] transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg"
+                        >
                             <ImStatsDots className="w-12 h-fit" />
                             Estatística
                         </button>
