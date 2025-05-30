@@ -22,7 +22,7 @@ export default function HomePage() {
         </Link>
 
         <Link
-          href={""}
+          href={"/loginEnfermeiro"}
           className="w-40 text-center p-3 rounded-2xl border-2 border-[#FFB8B8]"
         >
           Enfermeiro(a)
