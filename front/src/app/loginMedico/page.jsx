@@ -1,7 +1,13 @@
+"use client"
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FiArrowLeft } from "react-icons/fi";
 
 export default function LoginMedico() {
+
+    const router = useRouter()
+
     return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
             
@@ -39,6 +45,7 @@ export default function LoginMedico() {
 
                 <button 
                     className="text-center border-2 border-[#FFB8B8] px-4 py-2 rounded-2xl"
+                    onClick={() => router.replace('/dashboard')}
                 >
                     Entrar
                 </button>
