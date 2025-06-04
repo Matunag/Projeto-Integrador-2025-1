@@ -5,7 +5,7 @@ Este é o repositório do projeto integrador da turma de graduação em Engenhar
 ## 👥 Integrantes
 
 * [ ] Fernando Cardoso Houara Brêttas
-* [ ] Nome 2
+* [ ] Adriam Felipe Santos da Luz
 * [ ] Filipe Campos Matunaga Batista
 * [ ] Gabriel Freitas Brandão
 * [ ] João Aquiles Lemos Reis
