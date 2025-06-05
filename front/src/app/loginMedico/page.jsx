@@ -11,7 +11,7 @@ export default function LoginMedico() {
     return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
             
-            <div className="bg-white w-full sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl">
+            <div className="bg-white w-11/12 xs:w-3/4 xm:w-3/5 sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl">
             
                 <div className="w-full flex items-center justify-between">
                     <Link
@@ -34,13 +34,13 @@ export default function LoginMedico() {
                 <input 
                     type="number"
                     placeholder="CRM"
-                    className="bg-[#F4EEEE] py-2 px-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
                 <input 
                     type="text"
                     placeholder="Senha"
-                    className="bg-[#F4EEEE] py-2 px-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
                 <button 

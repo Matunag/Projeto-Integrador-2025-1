@@ -5,7 +5,7 @@ export default function loginEnfermeiro() {
     return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
             
-            <div className="bg-white w-full sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl">
+            <div className="bg-white w-11/12 xs:w-3/4 xm:w-3/5 sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl text-base sm:text-xl">
             
                 <div className="w-full flex items-center justify-between">
                     <Link
@@ -24,17 +24,17 @@ export default function loginEnfermeiro() {
                     <div className="w-8"/>
                 </div>
 
-                    <p className="font-bold text-xl border-b-2 border-[#FFB8B8] pb-2">Enfermeiro, faça o login!</p>
+                    <p className="font-bold border-b-2 border-[#FFB8B8] pb-2">Enfermeiro, faça o login!</p>
                 <input 
                     type="number"
                     placeholder="COREN"
-                    className="bg-[#F4EEEE] py-2 px-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
                 <input 
                     type="text"
                     placeholder="Senha"
-                    className="bg-[#F4EEEE] py-2 px-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
                 <button 
