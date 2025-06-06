@@ -1,33 +1,30 @@
-import Link from "next/link";
-import { FiArrowLeft } from "react-icons/fi";
+"use client"
 
-export default function LoginEnfermeiro() {
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
+export default function LoginPaciente() {
+
+    const router = useRouter()
+
     return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
             
-            <div className="bg-white w-11/12 xs:w-3/4 xm:w-3/5 sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl text-base sm:text-xl">
+            <div className="bg-white w-11/12 xs:w-3/4 xm:w-3/5 sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl">
             
-                <div className="w-full flex items-center justify-between">
-                    <Link
-                        href={"/"}
-                    >
-                        <FiArrowLeft className="w-8 h-fit"/>
-                    </Link>
+                
 
-                    <img 
-                        src="/Logo_SobreVidas.png" 
-                        alt="Logo ou imagem decorativa"
-                        className="w-24 h-auto mb-4"
-                    />
+                <img 
+                    src="/Logo_SobreVidas.png" 
+                    alt="Logo ou imagem decorativa"
+                    className="w-24 h-auto mb-4"
+                />
 
 
-                    <div className="w-8"/>
-                </div>
-
-                    <p className="font-bold border-b-2 border-[#FFB8B8] pb-2">Enfermeiro, faça o login!</p>
+                <p className="font-bold text-xl border-b-2 border-[#FFB8B8] pb-2">Paciente, faça o login!</p>
                 <input 
                     type="number"
-                    placeholder="COREN"
+                    placeholder="SUS"
                     className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
@@ -39,6 +36,7 @@ export default function LoginEnfermeiro() {
 
                 <button 
                     className="text-center border-2 border-[#FFB8B8] px-4 py-2 rounded-2xl"
+                    onClick={() => router.replace('/dashboardPaciente')}
                 >
                     Entrar
                 </button>

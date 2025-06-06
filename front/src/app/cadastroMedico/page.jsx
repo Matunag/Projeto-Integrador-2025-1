@@ -1,4 +1,4 @@
-export default function cadastroMedico() {
+export default function CadastroMedico() {
   return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
         <div className="bg-white w-4/5 xm:w-3/4 sm:w-4/5 sm:flex sm:flex-col rounded-xl gap-3 px-5 py-7 shadow-2xl">
