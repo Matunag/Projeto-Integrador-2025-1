@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FiArrowLeft } from "react-icons/fi";
 
-export default function LoginMedico() {
+export default function LoginPaciente() {
 
     const router = useRouter()
 
@@ -13,27 +12,19 @@ export default function LoginMedico() {
             
             <div className="bg-white w-11/12 xs:w-3/4 xm:w-3/5 sm:w-2/4 flex flex-col items-center rounded-xl gap-7 px-5 py-7 shadow-2xl">
             
-                <div className="w-full flex items-center justify-between">
-                    <Link
-                        href={"/"}
-                    >
-                        <FiArrowLeft className="w-8 h-fit"/>
-                    </Link>
+                
 
-                    <img 
-                        src="/Logo_SobreVidas.png" 
-                        alt="Logo ou imagem decorativa"
-                        className="w-24 h-auto mb-4"
-                    />
+                <img 
+                    src="/Logo_SobreVidas.png" 
+                    alt="Logo ou imagem decorativa"
+                    className="w-24 h-auto mb-4"
+                />
 
 
-                    <div className="w-8"/>
-                </div>
-
-                    <p className="font-bold text-xl border-b-2 border-[#FFB8B8] pb-2">Médico, faça o login!</p>
+                <p className="font-bold text-xl border-b-2 border-[#FFB8B8] pb-2">Paciente, faça o login!</p>
                 <input 
                     type="number"
-                    placeholder="CRM"
+                    placeholder="SUS"
                     className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
                 />
 
@@ -45,7 +36,7 @@ export default function LoginMedico() {
 
                 <button 
                     className="text-center border-2 border-[#FFB8B8] px-4 py-2 rounded-2xl"
-                    onClick={() => router.replace('/dashboard')}
+                    onClick={() => router.replace('/dashboardPaciente')}
                 >
                     Entrar
                 </button>
