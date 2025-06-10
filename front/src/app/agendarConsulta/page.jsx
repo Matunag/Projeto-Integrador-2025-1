@@ -26,7 +26,7 @@ export default function AgendarConsulta() {
                 <Link href={"/dashboardPaciente"} className="w-[60px]">
                     <FiArrowLeft className="w-10 h-fit" />
                 </Link>
-                <p>
+                <p className="text-center">
                     Agendamento <br />
                     de consulta
                 </p>

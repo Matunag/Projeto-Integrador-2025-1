@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
-import ExamResult from "@/components/ExamResult";
+import ExamOrientation from "@/components/ExamOrientation"
 import { exames } from "@/dados ficticios/dadosFicticios";
 
 export default function OrientacaoResultado() {
@@ -13,7 +13,7 @@ export default function OrientacaoResultado() {
                         <FiArrowLeft className="w-10 h-fit"/>
                     </Link>
 
-                <p>
+                <p className="text-center">
                     Orientação <br />
                     pós-resultado
                 </p>
@@ -27,11 +27,11 @@ export default function OrientacaoResultado() {
 
             <div className="w-full flex flex-col items-center mt-7 gap-6 ">
 
-            {
-                exames.map((exames, index) =>(
-                <ExamResult exam={exames} key={index} />
-                ))
-            }
+                {
+                    exames.map((exames, index) =>(
+                    <ExamOrientation exam={exames} key={index} />
+                    ))
+                }
                 
             <div>
 
