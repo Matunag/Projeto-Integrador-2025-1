@@ -20,3 +20,26 @@ export const pacients = [
         risk: "Alto"
     }
 ]
+
+export const exames = [
+    {
+        name: "Exame Papanicolau",
+        date: "23/05",
+        hour: "15:30",
+    },
+    {
+        name: "Biópsia do colo do útero",
+        date: "21/05",
+        hour: "9:30"
+    },
+    {
+        name: "Colposcopia",
+        date: "07/05",
+        hour: "17:00"
+    },
+    {
+        name: "Ultrassom",
+        date: "20/05",
+        hour: "9:30"
+    }
+]
