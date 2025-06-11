@@ -1,0 +1,45 @@
+package repository
+
+import (
+	"back/model"
+	"database/sql"
+)
+
+type UbsRepository struct {
+	connection *sql.DB
+}
+
+func NewUbsRepository(conn *sql.DB) UbsRepository {
+	return UbsRepository{
+		connection: conn,
+	}
+}
+
+func (ur *UbsRepository) GetUbsByID(id int) (*model.Ubs, error) {
+	query, err := ur.connection.Prepare("SELECT id, endereco_id, nome, cnes, prontuario FROM ubs WHERE id = $1")
+	if err != nil {
+		return nil, err
+	}
+
+	var ubs model.Ubs
+
+	err = query.QueryRow(id).Scan(
+		&ubs.ID,
+		&ubs.EnderecoID,
+		&ubs.Nome,
+		&ubs.CNES,
+		&ubs.Prontuario,
+	)
+
+	defer query.Close()
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	return &ubs, nil
+}
