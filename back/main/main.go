@@ -22,8 +22,13 @@ func main() {
 	UbsRepository := repository.NewUbsRepository(dbConnection)
 	UbsUseCase := useCase.NewUbsUseCase(UbsRepository, EnderecoRepository)
 	UbsController := controller.NewUbsController(UbsUseCase)
-
 	server.GET("/ubs/:ubsId", UbsController.GetUbsByID)
+
+	MedicoRepository := repository.NewMedicoRepository(dbConnection)
+	MedicoUseCase := useCase.NewMedicoUseCase(MedicoRepository, UbsRepository)
+	MedicoController := controller.NewMedicoController(MedicoUseCase)
+	server.GET("/medico/:medicoCpf", MedicoController.GetMedicoByID)
+	server.POST("/medico", MedicoController.CreateMedico)
 
 	server.Run(":8000")
 }

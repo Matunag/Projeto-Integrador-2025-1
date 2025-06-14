@@ -2,7 +2,6 @@ package controller
 
 import (
 	"back/useCase"
-	"fmt"
 	"net/http"
 	"strconv"
 	"strings"
@@ -42,7 +41,6 @@ func (uc *UbsController) GetUbsByID(ctx *gin.Context)  {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),
 		})
-		fmt.Println(err)
 		return
 	}
 
