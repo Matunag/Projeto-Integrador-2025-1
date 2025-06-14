@@ -8,3 +8,4 @@ type Consultas struct {
 	Data       *time.Time `json:"data"`
 	UbsID      *int       `json:"ubs_id"`
 }
+
