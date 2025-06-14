@@ -8,10 +8,3 @@ type consultas struct {
 	data			*time.Time
 	UbsID 			*int
 }
--- Tabela: consultas
-CREATE TABLE consultas (
-    id SERIAL PRIMARY KEY,
-    paciente_id INT REFERENCES paciente(id),
-    data TIMESTAMP,
-    ubs_id INT REFERENCES ubs(id)
-);
