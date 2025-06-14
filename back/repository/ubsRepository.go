@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type UbsRepository struct {
@@ -42,4 +43,29 @@ func (ur *UbsRepository) GetUbsByID(id int) (*model.Ubs, error) {
 	}
 
 	return &ubs, nil
+}
+
+func (ur *UbsRepository) DeleteUbsByID (id int) error {
+	query, err := ur.connection.Prepare("DELETE FROM ubs WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	affectedRows, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if affectedRows == 0 {
+		return fmt.Errorf("Nenhuma UBS foi encontrada com o id %v", id)
+	}
+
+	return nil
 }
