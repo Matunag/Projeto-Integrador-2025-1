@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function Dashboard() {
 
     return (
-        <div className="w-full h-screen bg-[#F9F5F5] flex flex-col">
+        <div className="w-full bg-[#F9F5F5] flex flex-col">
             <section className="bg-[#FFD8D8] w-full flex items-center justify-between px-5 py-3">
                 <FiMenu
                     className="w-10 lg:w-12 h-fit lg:mr-16"
@@ -35,11 +35,11 @@ export default function Dashboard() {
                 </div>
             </section>
 
-            <section className="h-[90vh] grid gap-5 px-8 py-5">
+            <section className="h-[90vh] grid gap-5 px-8 py-5 justify-items-center">
 
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between items-center flex-wrap ldx:items-stretch flex-row w-[95%] sm:w-[90%] ldx:w-full gap-4 ldx:gap-0">
 
-                    <div className="w-[35%] flex flex-col justify-between">
+                    <div className="w-full ldx:w-[35%] flex flex-col justify-between gap-4">
                         <Link 
                             href={"/form"}
                             className="hover:scale-[1.06] transition w-full flex items-center px-5 py-3 gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg"
@@ -63,7 +63,7 @@ export default function Dashboard() {
                         </button>
                     </div>
 
-                    <div className="w-[35%] flex flex-col justify-between px-5 py-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                    <div className="w-full xml:w-[64%] md:w-[67%] ldx:w-[35%] flex flex-col justify-between px-5 py-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
                         <p>Pacientes recentes</p>
 
                         {
@@ -73,35 +73,35 @@ export default function Dashboard() {
                         }
                     </div>
 
-                    <div className="w-[20%] flex flex-col p-5 gap-3 items-center text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                    <div className="w-full xml:w-[30%] ldx:w-[20%] flex flex-col p-9 xml:p-7 sm:p-[25px] gap-3 items-center text-xl bg-white shadow-md shadow-gray-400 rounded-lg  ">
                         <p>Exames pendentes</p>
-                        <div className="h-full flex justify-center items-center aspect-square border-4 border-[#D9D9D9] rounded-full">
-                            <p className="text-[#D9D9D9] text-8xl">10</p>
+                        <div className="h-full flex justify-center items-center aspect-square border-4 border-[#D9D9D9] rounded-full xml:p-5 sm:p-[10px] ldx:p-0">
+                            <p className="text-[#D9D9D9] text-6xl p-5 xml:text-7xl xml:p-0 sm:text-8xl">10</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="w-full flex justify-between">
+                <div className="w-[95%] sm:w-[90%] ldx:w-full flex justify-between flex-wrap gap-5 pb-5">
 
-                    <div className="w-[35%] px-5 pt-3 flex flex-col gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                    <div className="w-[100%] ldx:w-[35%] px-5 py-3 flex flex-col gap-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
                         <p>Pacientes por nível de risco</p>
-                        <div className="flex justify-evenly text-lg">
-                            <div className="flex items-center gap-3">
+                        <div className="flex justify-start ld:justify-evenly text-lg flex-wrap text-left">
+                            <div className="flex items-center gap-3 px-4">
                                 <div className="w-8 h-3 bg-[#4CAF50]" />
                                 Baixo
                             </div>
 
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 px-4">
                                 <div className="w-8 h-3 bg-[#FFC107]" />
                                 Médio
                             </div>
 
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-3 px-4">
                                 <div className="w-8 h-3 bg-[#F44236]" />
                                 Alto
                             </div>
                         </div>
-                        <Chart
+                        <Chart className="mt-3"
                             chartType="PieChart"
                             data={[
                                 ["Nível de risco", "Número de pacientes"],
@@ -123,7 +123,7 @@ export default function Dashboard() {
                         />
                     </div>
 
-                    <div className="w-[60%] flex flex-col px-5 pt-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
+                    <div className="w-[60%] hidden ldx:flex flex-col px-5 pt-3 text-xl bg-white shadow-md shadow-gray-400 rounded-lg">
                         <p>Número de consultas por mês</p>
                         <Chart
                             chartType="ColumnChart"
