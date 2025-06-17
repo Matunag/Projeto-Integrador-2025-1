@@ -6,12 +6,22 @@ import (
 	"back/repository"
 	"back/useCase"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-)
+	"time")
 
 func main() {
 	server := gin.Default()
 
+	server.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://localhost:3000"}, // permite o frontend
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+	
 	dbConnection, err := db.ConnectDB()
 	if err != nil {
 		panic(err)
@@ -29,6 +39,12 @@ func main() {
 	MedicoController := controller.NewMedicoController(MedicoUseCase)
 	server.GET("/medico/:medicoCpf", MedicoController.GetMedicoByID)
 	server.POST("/medico", MedicoController.CreateMedico)
+
+	EnfermeiroRepository := repository.NewEnfermeiroRepository(dbConnection)
+	EnfermeiroUsecase := useCase.NewEnfermeiroUseCase(EnfermeiroRepository, UbsRepository)
+	EnfermeiroController := controller.NewEnfermeiroController(EnfermeiroUsecase)
+	server.GET("/enfermeiro/:enfermeiroCpf", EnfermeiroController.GetEnfermeiroByID)
+	server.POST("/enfermeiro", EnfermeiroController.CreateEnfermeiro)
 
 	server.Run(":8000")
 }
