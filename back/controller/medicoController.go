@@ -41,7 +41,7 @@ func (mc *MedicoController) CreateMedico(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, createdMedico)
 }
 
-func (mc *MedicoController) GetMedicoByID(ctx *gin.Context) {
+func (mc *MedicoController) GetMedicoByCpf(ctx *gin.Context) {
 	medicoCpf := ctx.Param("medicoCpf")
 	if strings.TrimSpace(medicoCpf) == "" {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -50,7 +50,7 @@ func (mc *MedicoController) GetMedicoByID(ctx *gin.Context) {
 		return
 	}
 
-	medico, err := mc.useCase.GetMedicoByID(medicoCpf)
+	medico, err := mc.useCase.GetMedicoByCpf(medicoCpf)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, gin.H{
 			"message": err.Error(),

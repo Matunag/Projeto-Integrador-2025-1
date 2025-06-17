@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type MedicoRepository struct {
@@ -33,11 +34,13 @@ func (mr *MedicoRepository) CreateMedico(medico *model.Medico) (*model.Medico, e
 	return medico, nil
 }
 
-func (mr *MedicoRepository) GetMedicoByID(cpf string) (*model.Medico, error) {
+func (mr *MedicoRepository) GetMedicoByCpf(cpf string) (*model.Medico, error) {
 	query, err := mr.connection.Prepare("SELECT * FROM medico WHERE cpf = $1")
 	if err != nil {
 		return nil, err
 	}
+
+	defer query.Close()
 
 	var medico model.Medico
 
@@ -51,8 +54,6 @@ func (mr *MedicoRepository) GetMedicoByID(cpf string) (*model.Medico, error) {
 		&medico.Nome,
 	)
 
-	defer query.Close()
-
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, nil
@@ -62,4 +63,29 @@ func (mr *MedicoRepository) GetMedicoByID(cpf string) (*model.Medico, error) {
 	}
 
 	return &medico, nil
+}
+
+func (mr *MedicoRepository) DeleteMedicoByID (id *int) error {
+	query, err := mr.connection.Prepare("DELETE FROM medico WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+
+	if err !=nil{ 
+		return err
+	}
+	affectedRows, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if affectedRows == 0 {
+		return fmt.Errorf("Nenhum médico foi encontrado com o id %v", *id)
+	}
+
+	return nil
 }

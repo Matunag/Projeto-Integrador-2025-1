@@ -22,6 +22,8 @@ func (ur *UbsRepository) GetUbsByID(id int) (*model.Ubs, error) {
 		return nil, err
 	}
 
+	defer query.Close()
+
 	var ubs model.Ubs
 
 	err = query.QueryRow(id).Scan(
@@ -31,8 +33,6 @@ func (ur *UbsRepository) GetUbsByID(id int) (*model.Ubs, error) {
 		&ubs.CNES,
 		&ubs.Prontuario,
 	)
-
-	defer query.Close()
 
 	if err != nil {
 		if err == sql.ErrNoRows {

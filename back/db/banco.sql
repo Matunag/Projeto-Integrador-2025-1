@@ -48,7 +48,7 @@ CREATE TABLE paciente (
     id SERIAL PRIMARY KEY,
     endereco_id INT REFERENCES endereco(id),
     id_ubs INT REFERENCES ubs(id),
-    cartao_sus BIGINT UNIQUE,
+    cartao_sus VARCHAR(15) UNIQUE,
     nome VARCHAR(250),
     nome_mae VARCHAR(250),
     apelido VARCHAR(250),
@@ -64,7 +64,7 @@ CREATE TABLE paciente (
 CREATE TABLE ficha_citopatologica (
     id SERIAL PRIMARY KEY,
     paciente_id INT REFERENCES paciente(id),
-    data_criacao DATE,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     numero_protocolo INT
 );
 

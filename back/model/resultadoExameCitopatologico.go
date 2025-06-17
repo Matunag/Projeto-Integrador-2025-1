@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type ResultadoExameCitopatológico struct {
+type ResultadoExameCitopatologico struct {
 	ID                   *int       `json:"id"`
 	FichaID              *int       `json:"ficha_id"`
 	AmostraRejeitada     *string    `json:"amostra_rejeitada"`

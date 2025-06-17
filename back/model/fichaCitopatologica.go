@@ -2,7 +2,7 @@ package model
 
 import "time"
 
-type FichaCitopatológica struct {
+type FichaCitopatologica struct {
 	ID                        *int                           `json:"id"`
 	PacienteID                *int                           `json:"paciente_id"`
 	DataCriacao               *time.Time                     `json:"data_criacao"`
@@ -10,5 +10,5 @@ type FichaCitopatológica struct {
 	DadosAnamnese             *DadosAnamnese                 `json:"dados_anamnese"`
 	ExameClinico              *ExameClinico                  `json:"exame_clinico"`
 	IdentificacaoLaboratorio  *IdentificacaoLaboratorio      `json:"identificacao_laboratorio"`
-	Resultado                 *ResultadoExameCitopatológico  `json:"resultado"`
+	Resultado                 *ResultadoExameCitopatologico  `json:"resultado"`
 }
