@@ -9,3 +9,10 @@ type PacienteUseCase struct {
 	fichaRepository repository.FichaRepository
 }
 
+func NewPacienteUseCase(repo repository.PacienteRepository, fichaRepo repository.FichaRepository) PacienteUseCase {
+	return PacienteUseCase{
+		repository: repo,
+		fichaRepository: fichaRepo,
+	}
+}
+
