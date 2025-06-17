@@ -40,14 +40,35 @@ func main() {
 	MedicoController := controller.NewMedicoController(MedicoUseCase)
 	
 	server.GET("/medico/:medicoCpf", MedicoController.GetMedicoByCpf)
-	
 	server.POST("/medico", MedicoController.CreateMedico)
 
 	EnfermeiroRepository := repository.NewEnfermeiroRepository(dbConnection)
 	EnfermeiroUsecase := useCase.NewEnfermeiroUseCase(EnfermeiroRepository, UbsRepository)
 	EnfermeiroController := controller.NewEnfermeiroController(EnfermeiroUsecase)
+
 	server.GET("/enfermeiro/:enfermeiroCpf", EnfermeiroController.GetEnfermeiroByID)
 	server.POST("/enfermeiro", EnfermeiroController.CreateEnfermeiro)
+
+	FichaRepository := repository.NewFichaRepository(dbConnection)
+	AnamneseRepository := repository.NewDadosAnamneseRepository(dbConnection)
+	ExameClinicoRepository := repository.NewExameClinicoRepository(dbConnection)
+	IdentificacaoLabRepository := repository.NewIdentificacaoLabRepository(dbConnection)
+	ResultadoRepository := repository.NewResultadoRepository(dbConnection)
+
+	PacienteRepository := repository.NewPacienteRepository(dbConnection)
+	PacienteUseCase := useCase.NewPacienteUseCase(
+		PacienteRepository, 
+		EnderecoRepository, 
+		FichaRepository, 
+		AnamneseRepository, 
+		ExameClinicoRepository, 
+		IdentificacaoLabRepository, 
+		ResultadoRepository,
+	)
+	PacienteController := controller.NewPacienteController(PacienteUseCase)
+
+	server.GET("/paciente/:pacienteCpf", PacienteController.GetPacienteByCpf)
+	server.POST("/paciente", PacienteController.CreatePaciente)
 
 	server.Run(":8000")
 }

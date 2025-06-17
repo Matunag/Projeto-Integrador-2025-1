@@ -15,6 +15,35 @@ func NewEnderecoRepository(conn *sql.DB) EnderecoRepository {
 	}
 }
 
+func (er *EnderecoRepository) CreateEndereco(endereco *model.Endereco) (*model.Endereco, error) {
+	query, err := er.connection.Prepare(`
+		INSERT INTO endereco (logradouro, numero, complemento, bairro, cidade, uf, cep, referencia)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		RETURNING id`)
+	if err != nil {
+		return nil, err
+	}
+	
+	defer query.Close()
+
+	err = query.QueryRow(
+		endereco.Logradouro,
+		endereco.Numero,
+		endereco.Complemento,
+		endereco.Bairro,
+		endereco.Cidade,
+		endereco.Uf,
+		endereco.CEP,
+		endereco.Referencia,
+	).Scan(&endereco.ID)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return endereco, nil
+}
+
 func (er *EnderecoRepository) GetEnderecoByID(id int) (*model.Endereco, error) {
 	query, err := er.connection.Prepare("SELECT id, logradouro, numero, complemento, bairro, cidade, uf, cep, referencia FROM endereco WHERE id = $1")
 	if err != nil {

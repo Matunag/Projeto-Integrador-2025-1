@@ -22,7 +22,6 @@ func NewMedicoController(useCase useCase.MedicoUseCase) MedicoController {
 func (mc *MedicoController) CreateMedico(ctx *gin.Context) {
 	var medico model.Medico
 	err := ctx.BindJSON(&medico)
-
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"message": err.Error(),
@@ -45,7 +44,7 @@ func (mc *MedicoController) GetMedicoByCpf(ctx *gin.Context) {
 	medicoCpf := ctx.Param("medicoCpf")
 	if strings.TrimSpace(medicoCpf) == "" {
 		ctx.JSON(http.StatusBadRequest, gin.H{
-			"message": "Id não pode ser nulo",
+			"message": "Cpf não pode ser nulo",
 		})
 		return
 	}
