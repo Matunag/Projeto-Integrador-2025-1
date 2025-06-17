@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type EnfermeiroRepository struct {
@@ -62,4 +63,28 @@ func (mr *EnfermeiroRepository) GetEnfermeiroByID(cpf string) (*model.Enfermeiro
 	}
 
 	return &enfermeiro, nil
+}
+func (ur *UbsRepository) DeleteEnfermeiroByID (id int) error {
+	query, err := ur.connection.Prepare("DELETE FROM enfermeiro WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	affectedRows, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if affectedRows == 0 {
+		return fmt.Errorf("Nenhum enfermeiro foi encontrado com o id %v", id)
+	}
+
+	return nil
 }
