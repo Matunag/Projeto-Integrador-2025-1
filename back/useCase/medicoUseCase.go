@@ -31,8 +31,8 @@ func (mu *MedicoUseCase) CreateMedico(medico *model.Medico) (*model.Medico, erro
 	return createdMedico, nil
 }
 
-func (mu *MedicoUseCase) GetMedicoByID(cpf string) (*model.Medico, error) {
-	medico, err := mu.repository.GetMedicoByID(cpf)
+func (mu *MedicoUseCase) GetMedicoByCpf(cpf string) (*model.Medico, error) {
+	medico, err := mu.repository.GetMedicoByCpf(cpf)
 	if err != nil {
 		return nil, err
 	}

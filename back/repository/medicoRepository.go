@@ -33,11 +33,13 @@ func (mr *MedicoRepository) CreateMedico(medico *model.Medico) (*model.Medico, e
 	return medico, nil
 }
 
-func (mr *MedicoRepository) GetMedicoByID(cpf string) (*model.Medico, error) {
+func (mr *MedicoRepository) GetMedicoByCpf(cpf string) (*model.Medico, error) {
 	query, err := mr.connection.Prepare("SELECT * FROM medico WHERE cpf = $1")
 	if err != nil {
 		return nil, err
 	}
+
+	defer query.Close()
 
 	var medico model.Medico
 
@@ -50,8 +52,6 @@ func (mr *MedicoRepository) GetMedicoByID(cpf string) (*model.Medico, error) {
 		&medico.Senha,
 		&medico.Nome,
 	)
-
-	defer query.Close()
 
 	if err != nil {
 		if err == sql.ErrNoRows {
