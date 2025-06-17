@@ -19,5 +19,5 @@ type Paciente struct {
 	Endereco       *Endereco              `json:"endereco"`
 	Fichas         *[]FichaCitopatologica `json:"fichas"`
 	Exames         *[]Exames              `json:"exames"`
-	Consultad      *[]Consultas           `json:"consultas"`
+	Consultas      *[]Consultas           `json:"consultas"`
 }
