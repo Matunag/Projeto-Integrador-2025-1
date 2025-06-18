@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type ResultadoRepository struct {
@@ -77,4 +78,29 @@ func (rr *ResultadoRepository) CreateResultado(resultado *model.ResultadoExameCi
 	}
 
 	return resultado, nil
+}
+
+func (ur *ResultadoRepository) DeleteResultadoExameByID (id int) error {
+	query, err := ur.connection.Prepare("DELETE FROM resultado_exame_citopatologico WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	affectedRows, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if affectedRows == 0 {
+		return fmt.Errorf("Nenhum resultado de exame foi encontrado com o id %v", id)
+	}
+
+	return nil
 }

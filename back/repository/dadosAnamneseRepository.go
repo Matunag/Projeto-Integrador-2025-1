@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type DadosAnamneseRepository struct {
@@ -69,4 +70,30 @@ func (dr *DadosAnamneseRepository) CreateDadosAnamnese(dados *model.DadosAnamnes
 	}
 
 	return dados, nil
+}
+
+func (dr *DadosAnamneseRepository) DeleteDadosAnamneseByID(id *int) error {
+	query, err := dr.connection.Prepare("DELETE FROM dados_anamnese WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+
+	if err != nil {
+		return err 
+	}
+
+	rowsAffected, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("a anamnese com o id %v não foi encontrada", id )
+	}
+
+	return nil
 }

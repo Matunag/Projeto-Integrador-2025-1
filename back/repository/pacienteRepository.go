@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type PacienteRepository struct {
@@ -68,4 +69,29 @@ func (pr *PacienteRepository) GetPacienteByCpf(cpf string) (*model.Paciente, err
 	}
 
 	return &paciente, nil
+}
+
+func (pc *PacienteRepository) DeletePacienteByID(id int) error {
+	query, err := pc.connection.Prepare("DELETE FROM paciente WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	affectedRows, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if affectedRows == 0 {
+		return fmt.Errorf("Nenhum paciente foi encontrado com o id %v", id)
+	}
+
+	return nil
 }
