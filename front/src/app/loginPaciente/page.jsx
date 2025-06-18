@@ -2,10 +2,33 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { use, useState } from "react";
+import axios from "axios";
 
 export default function LoginPaciente() {
 
-    const router = useRouter()
+    const [cpf, setCpf] = useState('')
+        const [password, setPassword] = useState('')
+        const [message, setMessage] = useState('')
+    
+        const router = useRouter()
+    
+        async function checkUserData() {
+            try {
+                const { data } = await axios.get(`http://localhost:8000/paciente/${cpf}`)
+                const { senha: userPassword, cpf: userCPF } = data
+                
+                if (userPassword != password || userCPF != cpf) {
+                    setMessage("Usuário ou senha incorretos")
+                    return
+                }
+        
+                router.replace("dashboardPaciente")
+            } catch {
+                setMessage("Usuário ou senha incorretos")
+                return
+            }
+        }
 
     return (
         <div className="max-w-screen-md mx-auto w-full h-screen flex justify-center items-center px-2">
@@ -25,18 +48,22 @@ export default function LoginPaciente() {
                 <input 
                     type="number"
                     placeholder="SUS"
-                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none" onChange={(e)=> setCpf(e.target.value)}
                 />
 
                 <input 
                     type="text"
                     placeholder="Senha"
-                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none"
+                    className="bg-[#F4EEEE] p-1 sm:p-2 rounded-md outline-none" onChange={(e) => setPassword(e.target.value)}
                 />
+
+                {message && (
+                <p className="text-red-500 bg-red-100 p-1 rounded-md">{message}</p>
+            )}
 
                 <button 
                     className="text-center border-2 border-[#FFB8B8] px-4 py-2 rounded-2xl"
-                    onClick={() => router.replace('/dashboardPaciente')}
+                    onClick={checkUserData}
                 >
                     Entrar
                 </button>
