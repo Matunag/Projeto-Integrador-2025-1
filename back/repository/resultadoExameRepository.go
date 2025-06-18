@@ -3,7 +3,6 @@ package repository
 import (
 	"back/model"
 	"database/sql"
-	"fmt"
 )
 
 type ResultadoRepository struct {
@@ -15,7 +14,7 @@ func NewResultadoRepository(conn *sql.DB) ResultadoRepository {
 }
 
 func (rr *ResultadoRepository) GetResultadoByFichaID(fichaID int) (*model.ResultadoExameCitopatologico, error) {
-	query, err := rr.connection.Prepare(`SELECT id, ficha_id, amostra_rejeitada, epitelios, adequabilidade, normalidade,
+	query, err := rr.connection.Prepare(`SELECT id, ficha_id, amostra_rejeitada_por, epitelios, adequabilidade, normalidade,
 		alteracoes_calulares, microbiologia, celulas_atipicas, atipia_escamosa,
 		atipia_glandular, neoplasias_malignas, celulas_endometriais,
 		observacoes_gerais, screening_citotecnico, responsavel, data_resultado
@@ -39,27 +38,43 @@ func (rr *ResultadoRepository) GetResultadoByFichaID(fichaID int) (*model.Result
 	return &res, nil
 }
 
-func (ur *ResultadoRepository) DeleteResultadoExameByID (id int) error {
-	query, err := ur.connection.Prepare("DELETE FROM resultado_exame_citopatologico WHERE id = $1")
+func (rr *ResultadoRepository) CreateResultado(resultado *model.ResultadoExameCitopatologico) (*model.ResultadoExameCitopatologico, error) {
+	query := `
+		INSERT INTO resultado_exame_citopatologico (
+			ficha_id, amostra_rejeitada_por, epitelios, adequabilidade, normalidade,
+			alteracoes_calulares, microbiologia, celulas_atipicas, atipia_escamosa,
+			atipia_glandular, neoplasias_malignas, celulas_endometriais,
+			observacoes_gerais, screening_citotecnico, responsavel, data_resultado
+		) VALUES (
+			$1, $2, $3, $4, $5,
+			$6, $7, $8, $9,
+			$10, $11, $12,
+			$13, $14, $15, $16
+		) RETURNING id`
+
+	err := rr.connection.QueryRow(
+		query,
+		resultado.FichaID,
+		resultado.AmostraRejeitada,
+		resultado.Epitelios,
+		resultado.Adequabilidade,
+		resultado.Normalidade,
+		resultado.AlteracoesCalulares,
+		resultado.MicroBiologia,
+		resultado.CelulasAtipicas,
+		resultado.AtipiaEscamosa,
+		resultado.AtipiaGlandular,
+		resultado.NeoplasiasMalignas,
+		resultado.CelulasEndometriais,
+		resultado.ObservacoesGerais,
+		resultado.ScreeningCitotecnico,
+		resultado.Responsavel,
+		resultado.DataResultado,
+	).Scan(&resultado.ID)
+
 	if err != nil {
-		return err
-	}
-	defer query.Close()
-
-	result, err := query.Exec(id)
-	if err != nil {
-		return err
+		return nil, err
 	}
 
-	affectedRows, err := result.RowsAffected()
-
-	if err != nil {
-		return err
-	}
-
-	if affectedRows == 0 {
-		return fmt.Errorf("Nenhum resultado de exame foi encontrado com o id %v", id)
-	}
-
-	return nil
+	return resultado, nil
 }

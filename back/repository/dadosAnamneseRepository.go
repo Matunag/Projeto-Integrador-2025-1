@@ -3,7 +3,6 @@ package repository
 import (
 	"back/model"
 	"database/sql"
-	"fmt"
 )
 
 type DadosAnamneseRepository struct {
@@ -17,7 +16,7 @@ func NewDadosAnamneseRepository(conn *sql.DB) DadosAnamneseRepository {
 }
 
 func (dr *DadosAnamneseRepository) GetDadosAnamneseByFichaID(fichaID int) (*model.DadosAnamnese, error) {
-	query, err := dr.connection.Prepare(`SELECT id, ficha_id, motivo_exame, data_exame_preventivo, diu, gravida, anticoncepcional, hormonio_menopausa,
+	query, err := dr.connection.Prepare(`SELECT id, ficha_id, motivo_exame, data_exame_preventivo, diu, gravida, usa_anticoncepcional, hormonio_menopausa,
 		fez_radioterapia, ultima_menstruacao, sangramento_relacoes, sangramento_menopausa
 		FROM dados_anamnese WHERE ficha_id = $1`)
 	if err != nil {
@@ -38,28 +37,36 @@ func (dr *DadosAnamneseRepository) GetDadosAnamneseByFichaID(fichaID int) (*mode
 	return &res, nil
 }
 
-func (dr *DadosAnamneseRepository) DeleteDadosAnamneseByID (id *int) error {
-	query, err := dr.connection.Prepare("DELETE FROM dados_anamnese WHERE id = $1")
+func (dr *DadosAnamneseRepository) CreateDadosAnamnese(dados *model.DadosAnamnese) (*model.DadosAnamnese, error) {
+	query := `
+		INSERT INTO dados_anamnese (
+			ficha_id, motivo_exame, data_exame_preventivo, diu, gravida,
+			usa_anticoncepcional, hormonio_menopausa, fez_radioterapia, ultima_menstruacao,
+			sangramento_relacoes, sangramento_menopausa
+		) VALUES (
+			$1, $2, $3, $4, $5,
+			$6, $7, $8, $9,
+			$10, $11
+		) RETURNING id`
+
+	err := dr.connection.QueryRow(
+		query,
+		dados.FichaID,
+		dados.MotivoExame,
+		dados.DataExamePreventivo,
+		dados.Diu,
+		dados.Gravida,
+		dados.Anticoncepcional,
+		dados.HormonioMenopausa,
+		dados.FezRadioterapia,
+		dados.UltimaMenstruacao,
+		dados.SangramentoRelacoes,
+		dados.SangramentoMenopausa,
+	).Scan(&dados.ID)
+
 	if err != nil {
-		return err
-	}
-	defer query.Close()
-
-	result, err := query.Exec(id)
-
-	if err != nil {
-		return err 
+		return nil, err
 	}
 
-	rowsAffected, err := result.RowsAffected()
-
-	if err != nil {
-		return err
-	}
-
-	if rowsAffected == 0 {
-		return fmt.Errorf("a anamnese com o id %v não foi encontrada", id )
-	}
-
-	return nil
+	return dados, nil
 }
