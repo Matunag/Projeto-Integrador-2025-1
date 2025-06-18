@@ -67,23 +67,23 @@ func (pu *PacienteUseCase) GetPacienteByCpf(cpf string) (*model.Paciente, error)
 		return nil, err
 	}
 
-	for _, fichaObj := range fichas {
-		fichaObj.DadosAnamnese, err = pu.anamneseRepository.GetDadosAnamneseByFichaID(*fichaObj.ID)
+	for i := range fichas {
+		fichas[i].DadosAnamnese, err = pu.anamneseRepository.GetDadosAnamneseByFichaID(*fichas[i].ID)
 		if err != nil {
 			return nil, err
 		}
 
-		fichaObj.ExameClinico, err = pu.exameClinicoRepository.GetByFichaID(*fichaObj.ID)
+		fichas[i].ExameClinico, err = pu.exameClinicoRepository.GetByFichaID(*fichas[i].ID)
 		if err != nil {
 			return nil, err
 		}
 
-		fichaObj.IdentificacaoLaboratorio, err = pu.identificacaoLabRepository.GetByFichaID(*fichaObj.ID)
+		fichas[i].IdentificacaoLaboratorio, err = pu.identificacaoLabRepository.GetByFichaID(*fichas[i].ID)
 		if err != nil {
 			return nil, err
 		}
 
-		fichaObj.Resultado, err = pu.resultadoRepository.GetResultadoByFichaID(*fichaObj.ID)
+		fichas[i].Resultado, err = pu.resultadoRepository.GetResultadoByFichaID(*fichas[i].ID)
 		if err != nil {
 			return nil, err
 		}
