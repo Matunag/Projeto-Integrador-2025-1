@@ -13,7 +13,7 @@ func NewIdentificacaoLabRepository(conn *sql.DB) IdentificacaoLabRepository {
 	return IdentificacaoLabRepository{connection: conn}
 }
 
-func (ir *IdentificacaoLabRepository) GetByFichaID(fichaID int) (*model.IdentificacaoLaboratorio, error) {
+func (ir *IdentificacaoLabRepository) GetIdentificacaoLabByFichaID(fichaID int) (*model.IdentificacaoLaboratorio, error) {
 	query, err := ir.connection.Prepare(`SELECT id, ficha_id, cnes_laboratorio, nome, numero_exame, recebido_em FROM identificacao_laboratorio WHERE ficha_id = $1`)
 	if err != nil {
 		return nil, err
@@ -27,4 +27,26 @@ func (ir *IdentificacaoLabRepository) GetByFichaID(fichaID int) (*model.Identifi
 	}
 	
 	return &res, nil
+}
+
+func (ir *IdentificacaoLabRepository) CreateIdentificacaoLab(ident *model.IdentificacaoLaboratorio) (*model.IdentificacaoLaboratorio, error) {
+	query := `
+		INSERT INTO identificacao_laboratorio (
+			ficha_id, cnes_laboratorio, nome, numero_exame, recebido_em
+		) VALUES ($1, $2, $3, $4, $5) RETURNING id`
+
+	err := ir.connection.QueryRow(
+		query,
+		ident.FichaID,
+		ident.CnesLaboratorio,
+		ident.Nome,
+		ident.NumeroExame,
+		ident.RecebidoEm,
+	).Scan(&ident.ID)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return ident, nil
 }

@@ -3,6 +3,7 @@ package useCase
 import (
 	"back/model"
 	"back/repository"
+	"database/sql"
 )
 
 type PacienteUseCase struct {
@@ -67,25 +68,27 @@ func (pu *PacienteUseCase) GetPacienteByCpf(cpf string) (*model.Paciente, error)
 		return nil, err
 	}
 
-	for i := range fichas {
-		fichas[i].DadosAnamnese, err = pu.anamneseRepository.GetDadosAnamneseByFichaID(*fichas[i].ID)
-		if err != nil {
-			return nil, err
-		}
-
-		fichas[i].ExameClinico, err = pu.exameClinicoRepository.GetByFichaID(*fichas[i].ID)
-		if err != nil {
-			return nil, err
-		}
-
-		fichas[i].IdentificacaoLaboratorio, err = pu.identificacaoLabRepository.GetByFichaID(*fichas[i].ID)
-		if err != nil {
-			return nil, err
-		}
-
-		fichas[i].Resultado, err = pu.resultadoRepository.GetResultadoByFichaID(*fichas[i].ID)
-		if err != nil {
-			return nil, err
+	if fichas != nil {
+		for i := range fichas {
+			fichas[i].DadosAnamnese, err = pu.anamneseRepository.GetDadosAnamneseByFichaID(*fichas[i].ID)
+			if err != nil && err != sql.ErrNoRows {
+				return nil, err
+			}
+	
+			fichas[i].ExameClinico, err = pu.exameClinicoRepository.GetExameClinicoByFichaID(*fichas[i].ID)
+			if err != nil && err != sql.ErrNoRows {
+				return nil, err
+			}
+	
+			fichas[i].IdentificacaoLaboratorio, err = pu.identificacaoLabRepository.GetIdentificacaoLabByFichaID(*fichas[i].ID)
+			if err != nil && err != sql.ErrNoRows {
+				return nil, err
+			}
+	
+			fichas[i].Resultado, err = pu.resultadoRepository.GetResultadoByFichaID(*fichas[i].ID)
+			if err != nil && err != sql.ErrNoRows {
+				return nil, err
+			}
 		}
 	}
 

@@ -35,7 +35,7 @@ func (fr *FichaRepository) CreateFicha(ficha *model.FichaCitopatologica) (*model
 }
 
 func (fr *FichaRepository) GetFichasByPaciente(idPaciente int) ([]model.FichaCitopatologica, error) {
-	query, err := fr.connection.Prepare("SELECT * FROM medico WHERE cpf = $1")
+	query, err := fr.connection.Prepare("SELECT * FROM ficha_citopatologica WHERE paciente_id = $1")
 	if err != nil {
 		return []model.FichaCitopatologica{}, err
 	}

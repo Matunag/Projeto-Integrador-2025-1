@@ -1,7 +1,5 @@
 package model
 
-import "time"
-
 type Paciente struct {
 	ID             *int                   `json:"id"`
 	EnderecoID     *int                   `json:"endereco_id"`
@@ -12,7 +10,7 @@ type Paciente struct {
 	Apelido        *string                `json:"apelido"`
 	CPF            *string                `json:"cpf"`
 	Nacionalidade  *string                `json:"nacionalidade"`
-	DataNascimento *time.Time             `json:"data_nascimento"`
+	DataNascimento *DateOnly              `json:"data_nascimento"`
 	Cor            *string                `json:"cor"`
 	Telefone       *string                `json:"telefone"`
 	Escolaridade   *string                `json:"escolaridade"`

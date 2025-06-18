@@ -49,11 +49,22 @@ func main() {
 	server.GET("/enfermeiro/:enfermeiroCpf", EnfermeiroController.GetEnfermeiroByID)
 	server.POST("/enfermeiro", EnfermeiroController.CreateEnfermeiro)
 
-	FichaRepository := repository.NewFichaRepository(dbConnection)
 	AnamneseRepository := repository.NewDadosAnamneseRepository(dbConnection)
 	ExameClinicoRepository := repository.NewExameClinicoRepository(dbConnection)
 	IdentificacaoLabRepository := repository.NewIdentificacaoLabRepository(dbConnection)
 	ResultadoRepository := repository.NewResultadoRepository(dbConnection)
+	
+	FichaRepository := repository.NewFichaRepository(dbConnection)
+	FichaUseCase := useCase.NewFichaUseCase(
+		FichaRepository,
+		AnamneseRepository, 
+		ExameClinicoRepository, 
+		IdentificacaoLabRepository, 
+		ResultadoRepository,
+	)
+	FichaController := controller.NewFichaRepository(FichaUseCase)
+
+	server.POST("/ficha", FichaController.CreateFichaByPaciente)
 
 	PacienteRepository := repository.NewPacienteRepository(dbConnection)
 	PacienteUseCase := useCase.NewPacienteUseCase(

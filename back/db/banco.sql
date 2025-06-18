@@ -63,7 +63,7 @@ CREATE TABLE paciente (
 -- Tabela: ficha_citopatologica
 CREATE TABLE ficha_citopatologica (
     id SERIAL PRIMARY KEY,
-    paciente_id INT REFERENCES paciente(id),
+    paciente_id INT REFERENCES paciente(id) ON DELETE CASCADE,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     numero_protocolo INT
 );
@@ -71,7 +71,7 @@ CREATE TABLE ficha_citopatologica (
 -- Tabela: dados_anamnese
 CREATE TABLE dados_anamnese (
     id SERIAL PRIMARY KEY,
-    ficha_id INT REFERENCES ficha_citopatologica(id),
+    ficha_id INT REFERENCES ficha_citopatologica(id) ON DELETE CASCADE,
     motivo_exame VARCHAR(100),
     data_exame_preventivo DATE,
     diu BOOLEAN,
@@ -87,7 +87,7 @@ CREATE TABLE dados_anamnese (
 -- Tabela: exame_clinico
 CREATE TABLE exame_clinico (
     id SERIAL PRIMARY KEY,
-    ficha_id INT REFERENCES ficha_citopatologica(id),
+    ficha_id INT REFERENCES ficha_citopatologica(id) ON DELETE CASCADE,
     inspecao_colo VARCHAR(50),
     sinais_dst BOOLEAN,
     data_coleta DATE,
@@ -97,7 +97,7 @@ CREATE TABLE exame_clinico (
 -- Tabela: identificacao_laboratorio
 CREATE TABLE identificacao_laboratorio (
     id SERIAL PRIMARY KEY,
-    ficha_id INT REFERENCES ficha_citopatologica(id),
+    ficha_id INT REFERENCES ficha_citopatologica(id) ON DELETE CASCADE,
     cnes_laboratorio CHAR(7),
     nome VARCHAR(100),
     numero_exame VARCHAR(20),
@@ -107,7 +107,7 @@ CREATE TABLE identificacao_laboratorio (
 -- Tabela: resultado_exame_citopatologico
 CREATE TABLE resultado_exame_citopatologico (
     id SERIAL PRIMARY KEY,
-    ficha_id INT REFERENCES ficha_citopatologica(id),
+    ficha_id INT REFERENCES ficha_citopatologica(id) ON DELETE CASCADE,
     amostra_rejeitada_por VARCHAR(100),
     epitelios VARCHAR(100),
     adequabilidade VARCHAR(100),
@@ -128,14 +128,14 @@ CREATE TABLE resultado_exame_citopatologico (
 -- Tabela: exames
 CREATE TABLE exames (
     id SERIAL PRIMARY KEY,
-    paciente_id INT REFERENCES paciente(id),
+    paciente_id INT REFERENCES paciente(id) ON DELETE CASCADE,
     imagem_exame BYTEA
 );
 
 -- Tabela: consultas
 CREATE TABLE consultas (
     id SERIAL PRIMARY KEY,
-    paciente_id INT REFERENCES paciente(id),
+    paciente_id INT REFERENCES paciente(id) ON DELETE CASCADE,
     data TIMESTAMP,
     ubs_id INT REFERENCES ubs(id)
 );
