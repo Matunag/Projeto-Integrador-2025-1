@@ -3,6 +3,7 @@ package repository
 import (
 	"back/model"
 	"database/sql"
+	"fmt"
 )
 
 type FichaRepository struct {
@@ -66,4 +67,30 @@ func (fr *FichaRepository) GetFichasByPaciente(idPaciente int) ([]model.FichaCit
 	}
 
 	return fichaList, nil
+}
+
+func (fr *FichaRepository) DeleteFichaByID (id *int) error {
+	query, err := fr.connection.Prepare("DELETE FROM ficha_citopatologica WHERE id = $1")
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	result, err := query.Exec(id)
+
+	if err != nil {
+		return err 
+	}
+
+	rowsAffected, err := result.RowsAffected()
+
+	if err != nil {
+		return err
+	}
+
+	if rowsAffected == 0 {
+		return fmt.Errorf("Nenhuma ficha com o id %v foi encontrada", id )
+	}
+
+	return nil
 }
